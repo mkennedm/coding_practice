@@ -36,12 +36,17 @@ def test_zipcode_in_multiple_rate_areas():
 
     duplicates = get_zipcodes_in_multiple_rate_areas()
 
-    for zip in duplicates:
-        assert zipcode_in_multiple_rate_areas(zip)
+    for zipcode in duplicates:
+        assert zipcode_in_multiple_rate_areas(zipcode)
 
 def test_get_rate_area_and_state_for_zipcode():
     assert get_rate_area_and_state_for_zipcode(single_occurrence_zip) == ('3', 'mo')
 
 def test_get_second_lowest_cost():
     costs = get_all_costs_for_zipcode(single_occurrence_zip)
-    assert get_second_lowest_cost(costs) == 245.2
+    assert get_second_lowest_cost(costs) == '245.20'
+
+def run_all_tests():
+    test_zipcode_in_multiple_rate_areas()
+    test_get_rate_area_and_state_for_zipcode()
+    test_get_second_lowest_cost()
