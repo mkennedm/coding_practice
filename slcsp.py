@@ -27,11 +27,26 @@ def zipcode_in_multiple_rate_areas(zipcode):
         return False
 
 def get_all_costs_for_zipcode(zipcode):
-    # zipcode is NOT in multiple rate areas
+    # assume zipcode is NOT in multiple rate areas
 
-    rate_area = get_rate_area_for_zipcode(zipcode)
+    rate_area, state = get_rate_area_and_state_for_zipcode(zipcode)
+    costs = []
 
-    return []
+    with open(plans_file) as plans:
+        plans_reader = csv.DictReader(plans)
+
+        for row in plans_reader:
+            if row['rate_area'] == rate_area and \
+                row['state'].lower() == state and \
+                row['metal_level'].lower() == 'silver':
+                    costs.append(float(row['rate']))
+    return costs
+
+def get_second_lowest_cost(costs):
+    costs = sorted(list(set(costs)))
+    if len(costs) > 1:
+        return costs[1]
+    return None
 
 def get_rate_area_and_state_for_zipcode(zipcode):
     rate_area, state = '', ''
@@ -42,6 +57,6 @@ def get_rate_area_and_state_for_zipcode(zipcode):
         for row in zip_data_reader:
             if row['zipcode'] == zipcode:
                 rate_area = row['rate_area']
-                state = row['state']
+                state = row['state'].lower()
 
     return rate_area, state
