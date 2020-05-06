@@ -24,7 +24,7 @@ def get_zipcodes_in_multiple_rate_areas():
 
             if count > 1:
                 duplicates.append(zipcode)
-            #print('zipcode: {}, count: {}'.format(zipcode, count))
+
     return duplicates
 
 def test_zipcode_in_multiple_rate_areas():
