@@ -31,3 +31,8 @@ def test_zipcode_in_multiple_rate_areas():
     test_zip = '64148'
     
     assert zipcode_in_multiple_rate_areas(test_zip) == False
+
+    duplicates = get_zipcodes_in_multiple_rate_areas()
+
+    for zip in duplicates:
+        assert zipcode_in_multiple_rate_areas(zip)
