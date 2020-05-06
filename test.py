@@ -1,10 +1,12 @@
 from slcsp import (
-    zipcode_in_multiple_rate_areas
+    zipcode_in_multiple_rate_areas,
+    get_rate_area_for_zipcode
     )
 import csv
 
 input_file = 'slcsp.csv'
 zipcode_data_file = 'zips.csv'
+single_occurrence_zip = '64148'
 
 def get_zipcodes_in_multiple_rate_areas():
     duplicates = []
@@ -28,11 +30,12 @@ def get_zipcodes_in_multiple_rate_areas():
     return duplicates
 
 def test_zipcode_in_multiple_rate_areas():
-    test_zip = '64148'
-    
-    assert zipcode_in_multiple_rate_areas(test_zip) == False
+    assert zipcode_in_multiple_rate_areas(single_occurrence_zip) == False
 
     duplicates = get_zipcodes_in_multiple_rate_areas()
 
     for zip in duplicates:
         assert zipcode_in_multiple_rate_areas(zip)
+
+def test_get_rate_area_for_zipcode():
+    assert get_rate_area_for_zipcode(single_occurrence_zip) == '3'
