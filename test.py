@@ -1,6 +1,6 @@
 from slcsp import (
     zipcode_in_multiple_rate_areas,
-    get_rate_area_for_zipcode
+    get_rate_area_and_state_for_zipcode
     )
 import csv
 
@@ -37,5 +37,5 @@ def test_zipcode_in_multiple_rate_areas():
     for zip in duplicates:
         assert zipcode_in_multiple_rate_areas(zip)
 
-def test_get_rate_area_for_zipcode():
-    assert get_rate_area_for_zipcode(single_occurrence_zip) == '3'
+def test_get_rate_area_and_state_for_zipcode():
+    assert get_rate_area_and_state_for_zipcode(single_occurrence_zip) == ('3', 'MO')

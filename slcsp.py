@@ -29,19 +29,12 @@ def zipcode_in_multiple_rate_areas(zipcode):
 def get_all_costs_for_zipcode(zipcode):
     # zipcode is NOT in multiple rate areas
 
-    rate_area = ''
-
-    with open(zipcode_data_file) as zip_data:
-        zip_data_reader = csv.DictReader(zip_data)
-
-        for row in zip_data_reader:
-            if row['zipcode'] == zipcode:
-                rate_area = row['rate_area']
+    rate_area = get_rate_area_for_zipcode(zipcode)
 
     return []
 
-def get_rate_area_for_zipcode(zipcode):
-    rate_area = ''
+def get_rate_area_and_state_for_zipcode(zipcode):
+    rate_area, state = '', ''
 
     with open(zipcode_data_file) as zip_data:
         zip_data_reader = csv.DictReader(zip_data)
@@ -49,5 +42,6 @@ def get_rate_area_for_zipcode(zipcode):
         for row in zip_data_reader:
             if row['zipcode'] == zipcode:
                 rate_area = row['rate_area']
+                state = row['state']
 
-    return rate_area
+    return rate_area, state
