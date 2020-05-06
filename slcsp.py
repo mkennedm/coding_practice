@@ -44,7 +44,7 @@ def get_all_costs_for_zipcode(zipcode):
 def get_second_lowest_cost(costs):
     costs = sorted(list(set(costs)))
     if len(costs) > 1:
-        return costs[1]
+        return format(costs[1], '.2f')
     return None
 
 def get_rate_area_and_state_for_zipcode(zipcode):
