@@ -60,3 +60,28 @@ def get_rate_area_and_state_for_zipcode(zipcode):
                 state = row['state'].lower()
 
     return rate_area, state
+
+def write_new_file():
+    field_names = ['zipcode', 'rate']
+
+    with open(output_file, 'w') as out_file:
+        writer = csv.DictWriter(out_file, fieldnames=field_names)
+        writer.writeheader()
+
+    with open(input_file) as in_file:
+        in_reader = csv.DictReader(in_file)
+
+        for row in in_reader:
+            zipcode = row['zipcode']
+            rate = None
+
+            if not zipcode_in_multiple_rate_areas(zipcode):
+                costs = get_all_costs_for_zipcode(zipcode)
+                rate = get_second_lowest_cost(costs)
+
+            with open(output_file, 'a') as out_file:
+                writer = csv.DictWriter(out_file, fieldnames=field_names)
+                out_row = {'zipcode': zipcode}
+                if rate:
+                    out_row['rate'] = rate
+                writer.writerow(out_row)
