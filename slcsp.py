@@ -63,7 +63,7 @@ def get_rate_area_and_state_for_zipcode(zipcode):
 def write_new_file():
     field_names = ['zipcode', 'rate']
 
-    with open(output_file, 'w') as out_file:
+    with open(output_file, 'w', newline='') as out_file:
         writer = csv.DictWriter(out_file, fieldnames=field_names)
         writer.writeheader()
 
@@ -78,7 +78,7 @@ def write_new_file():
                 costs = get_all_costs_for_zipcode(zipcode)
                 rate = get_second_lowest_cost(costs)
 
-            with open(output_file, 'a') as out_file:
+            with open(output_file, 'a', newline='') as out_file:
                 writer = csv.DictWriter(out_file, fieldnames=field_names)
                 out_row = {'zipcode': zipcode}
                 if rate:
